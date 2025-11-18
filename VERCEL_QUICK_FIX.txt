@@ -1,0 +1,59 @@
+════════════════════════════════════════════════════════
+   תיקון מהיר - Vercel לא עובד
+════════════════════════════════════════════════════════
+
+🔴 שגיאה: DNS_PROBE_FINISHED_NXDOMAIN
+💡 פתרון: הפרויקט לא פורס נכון
+
+════════════════════════════════════════════════════════
+
+✅ פתרון מהיר - 5 דקות:
+
+1. גש ל: https://vercel.com/dashboard
+
+2. לחץ: "Add New..." → "Project"
+
+3. בחר: "Import Git Repository"
+
+4. בחר: "Drrein86/menu-pro" מ-GitHub
+   (אם לא רואה - לחץ "Configure GitHub App")
+
+5. הגדרות:
+   Framework Preset: Other
+   Build Command: cd client && npm install && npm run build
+   Output Directory: client/dist
+
+6. Environment Variables (לחץ "Add" 3 פעמים):
+
+   SUPABASE_URL = 
+   https://lykcxbuxqanujqqalxsh.supabase.co
+
+   SUPABASE_ANON_KEY = 
+   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5a2N4YnV4cWFudWpxcWFseHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0NzgzMDQsImV4cCI6MjA3OTA1NDMwNH0.0TZeIUC2CvXbNWQucP1vbkAvixBlFA2B3UoaggqA7p4
+
+   SUPABASE_SERVICE_KEY = 
+   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5a2N4YnV4cWFudWpxcWFseHNoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzQ3ODMwNCwiZXhwIjoyMDc5MDU0MzA0fQ.F6FwwGWdSvCu7cD-O3pOHbqvrY408JX3JDYUl6tm0V4
+
+7. לחץ: "Deploy"
+
+8. המתן 3-5 דקות
+
+9. יופיע URL חדש - זה הקישור שלך!
+
+════════════════════════════════════════════════════════
+
+🔍 איפה הפרויקט ב-GitHub?
+https://github.com/Drrein86/menu-pro
+
+אם אין - הרץ:
+upload-to-github-Drrein86.bat
+
+════════════════════════════════════════════════════════
+
+💬 עדיין תקוע?
+קרא: VERCEL_MANUAL_SETUP.md
+
+או תגיד לי איפה אתה תקוע!
+
+════════════════════════════════════════════════════════
+
