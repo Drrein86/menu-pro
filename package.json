@@ -1,27 +1,32 @@
 {
-  "name": "menu-pro-local",
-  "version": "1.0.0",
-  "description": "מערכת יצירת תפריטים דיגיטליים לעסק אחד",
+  "name": "menu-pro",
+  "version": "2.0.0",
+  "description": "מערכת תפריטים דיגיטליים מקצועית עם Supabase",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon server/index.js",
+    "server": "nodemon server/index-supabase.js",
     "client": "cd client && npm run dev",
     "build": "cd client && npm run build",
-    "start": "node server/index.js"
+    "start": "node server/index-supabase.js",
+    "old-sqlite": "node server/index.js",
+    "vercel-build": "cd client && npm install && npm run build"
   },
-  "keywords": ["menu", "digital", "restaurant"],
-  "author": "",
+  "keywords": ["menu", "digital", "restaurant", "supabase", "vercel"],
+  "author": "Drrein86",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
-    "sqlite3": "^5.1.7",
-    "multer": "^1.4.5-lts.1"
+    "@supabase/supabase-js": "^2.39.0",
+    "multer": "^1.4.5-lts.1",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
     "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
-

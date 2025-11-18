@@ -1,0 +1,40 @@
+==============================================
+  צור קובץ .env עם התוכן הזה
+==============================================
+
+שנה את שם הקובץ הזה ל: .env
+(הסר את .txt, רק .env)
+
+ואז החלף את YOUR_SERVICE_ROLE_KEY_HERE במפתח מ-Supabase
+
+==============================================
+
+SUPABASE_URL=https://lykcxbuxqanujqqalxsh.supabase.co
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5a2N4YnV4cWFudWpxcWFseHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0NzgzMDQsImV4cCI6MjA3OTA1NDMwNH0.0TZeIUC2CvXbNWQucP1vbkAvixBlFA2B3UoaggqA7p4
+SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5a2N4YnV4cWFudWpxcWFseHNoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzQ3ODMwNCwiZXhwIjoyMDc5MDU0MzA0fQ.F6FwwGWdSvCu7cD-O3pOHbqvrY408JX3JDYUl6tm0V4
+PORT=3000
+NODE_ENV=development
+
+==============================================
+
+איפה למצוא את ה-SERVICE_ROLE_KEY:
+
+1. גש ל: https://supabase.com/dashboard/project/lykcxbuxqanujqqalxsh/settings/api
+
+2. גלול למטה ל-"Project API keys"
+
+3. מצא את השורה:
+   service_role | secret | ••••••• [Reveal]
+
+4. לחץ "Reveal"
+
+5. העתק את המפתח (מתחיל ב-eyJhbG...)
+
+6. הדבק אותו כאן במקום YOUR_SERVICE_ROLE_KEY_HERE
+
+7. שמור כקובץ .env
+
+8. הרץ: npm install && npm run dev
+
+==============================================
+

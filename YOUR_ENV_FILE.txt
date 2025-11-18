@@ -1,0 +1,15 @@
+# העתק את כל התוכן הזה לקובץ בשם: .env
+# (צור קובץ חדש בתיקיה הראשית ושנה את שמו ל: .env)
+
+SUPABASE_URL=https://lykcxbuxqanujqqalxsh.supabase.co
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5a2N4YnV4cWFudWpxcWFseHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0NzgzMDQsImV4cCI6MjA3OTA1NDMwNH0.0TZeIUC2CvXbNWQucP1vbkAvixBlFA2B3UoaggqA7p4
+SUPABASE_SERVICE_KEY=PASTE-YOUR-SERVICE-ROLE-KEY-HERE
+PORT=3000
+NODE_ENV=development
+
+# הוראות:
+# 1. צור קובץ חדש בשם: .env (בדיוק ככה, ללא txt)
+# 2. העתק את התוכן למעלה (ללא ההערות האלה)
+# 3. החלף את SUPABASE_SERVICE_KEY במפתח האמיתי מ-Supabase
+# 4. שמור והרץ: npm run dev
+
