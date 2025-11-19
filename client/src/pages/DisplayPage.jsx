@@ -81,18 +81,27 @@ const DisplayPage = () => {
       }}
     >
       {/* רקע מדיה - צד שמאל */}
-      <div className="w-1/3 relative overflow-hidden">
+      <div className="w-1/3 relative overflow-hidden bg-black">
         {menu.media_url ? (
           isVideo ? (
             // וידאו
             menu.media_url.includes('youtube.com') || menu.media_url.includes('youtu.be') ? (
-              <iframe
-                className="absolute inset-0 w-full h-full object-cover"
-                src={`https://www.youtube.com/embed/${extractYouTubeID(menu.media_url)}?autoplay=1&mute=1&loop=1&playlist=${extractYouTubeID(menu.media_url)}&controls=0&showinfo=0&rel=0`}
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              />
+              <div className="absolute inset-0 w-full h-full">
+                <iframe
+                  className="absolute"
+                  style={{
+                    top: '-60px',
+                    left: '-60px',
+                    width: 'calc(100% + 120px)',
+                    height: 'calc(100% + 120px)',
+                    border: 'none',
+                    pointerEvents: 'none'
+                  }}
+                  src={`https://www.youtube.com/embed/${extractYouTubeID(menu.media_url)}?autoplay=1&mute=1&loop=1&playlist=${extractYouTubeID(menu.media_url)}&controls=0&showinfo=0&rel=0&modestbranding=1&fs=0&disablekb=1&iv_load_policy=3&playsinline=1`}
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen={false}
+                />
+              </div>
             ) : (
               <video
                 className="absolute inset-0 w-full h-full object-cover"
