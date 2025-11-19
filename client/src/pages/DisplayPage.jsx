@@ -92,9 +92,9 @@ const DisplayPage = () => {
                   style={{
                     top: '50%',
                     left: '50%',
-                    width: '200%',
-                    height: '200%',
-                    transform: 'translate(-50%, -50%)',
+                    width: '400%',
+                    height: '400%',
+                    transform: 'translate(-50%, -50%) scale(1.5)',
                     border: 'none',
                     pointerEvents: 'none'
                   }}
