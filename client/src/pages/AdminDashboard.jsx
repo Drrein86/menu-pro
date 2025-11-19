@@ -53,9 +53,9 @@ const AdminDashboard = () => {
   const currentMenu = menus.find(m => m.id === selectedMenu) || menus[0];
 
   return (
-    <div className="min-h-screen bg-gray-50 font-assistant" dir="rtl">
+    <div className="h-screen flex flex-col bg-gray-50 font-assistant overflow-hidden" dir="rtl">
       {/* Header */}
-      <header className="bg-white shadow-md">
+      <header className="bg-white shadow-md flex-shrink-0">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -102,7 +102,7 @@ const AdminDashboard = () => {
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="bg-white border-b border-gray-200">
+      <nav className="bg-white border-b border-gray-200 flex-shrink-0">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex gap-1">
             {tabs.map((tab) => {
@@ -126,38 +126,40 @@ const AdminDashboard = () => {
         </div>
       </nav>
 
-      {/* Content Area */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {activeTab === 'home' && (
-          <HomeTab 
-            menus={menus}
-            products={products} 
-            selectedMenu={selectedMenu}
-            onNavigate={setActiveTab}
-          />
-        )}
-        {activeTab === 'menus' && (
-          <MenusTab 
-            menus={menus}
-            selectedMenu={selectedMenu}
-            setSelectedMenu={setSelectedMenu}
-            onRefresh={loadData}
-          />
-        )}
-        {activeTab === 'products' && (
-          <ProductsTab 
-            products={products}
-            setProducts={setProducts}
-            selectedMenu={selectedMenu}
-            onRefresh={loadData}
-          />
-        )}
-        {activeTab === 'design' && (
-          <DesignTab 
-            menu={currentMenu}
-            onUpdate={loadData}
-          />
-        )}
+      {/* Content Area - Scrollable */}
+      <main className="flex-1 overflow-y-auto">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          {activeTab === 'home' && (
+            <HomeTab 
+              menus={menus}
+              products={products} 
+              selectedMenu={selectedMenu}
+              onNavigate={setActiveTab}
+            />
+          )}
+          {activeTab === 'menus' && (
+            <MenusTab 
+              menus={menus}
+              selectedMenu={selectedMenu}
+              setSelectedMenu={setSelectedMenu}
+              onRefresh={loadData}
+            />
+          )}
+          {activeTab === 'products' && (
+            <ProductsTab 
+              products={products}
+              setProducts={setProducts}
+              selectedMenu={selectedMenu}
+              onRefresh={loadData}
+            />
+          )}
+          {activeTab === 'design' && (
+            <DesignTab 
+              menu={currentMenu}
+              onUpdate={loadData}
+            />
+          )}
+        </div>
       </main>
     </div>
   );

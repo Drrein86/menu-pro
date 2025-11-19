@@ -113,3 +113,27 @@ html[dir="rtl"] * {
   scrollbar-width: none;
 }
 
+/* גלילה חלקה ומעוצבת לאדמין */
+.overflow-y-auto {
+  scroll-behavior: smooth;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #b8941f;
+}
+
