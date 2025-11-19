@@ -145,14 +145,15 @@ const AdminDashboard = () => {
               onRefresh={loadData}
             />
           )}
-          {activeTab === 'products' && (
-            <ProductsTab 
-              products={products}
-              setProducts={setProducts}
-              selectedMenu={selectedMenu}
-              onRefresh={loadData}
-            />
-          )}
+        {activeTab === 'products' && (
+          <ProductsTab 
+            products={products}
+            setProducts={setProducts}
+            selectedMenu={selectedMenu}
+            menus={menus}
+            onRefresh={loadData}
+          />
+        )}
           {activeTab === 'design' && (
             <DesignTab 
               menu={currentMenu}

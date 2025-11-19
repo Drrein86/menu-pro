@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Star, Image as ImageIcon, Save, X, Upload, Package } from 'lucide-react';
 import { createProduct, updateProduct, deleteProduct, uploadFile } from '../../api/api';
 
-const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
+const ProductsTab = ({ products, setProducts, selectedMenu, menus, onRefresh }) => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState({
@@ -13,6 +13,7 @@ const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
     is_recommended: 0,
     image_url: '',
   });
+  const [selectedMenus, setSelectedMenus] = useState([selectedMenu]);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -27,6 +28,7 @@ const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
       image_url: product.image_url || '',
       menu_id: product.menu_id || selectedMenu,
     });
+    setSelectedMenus([product.menu_id || selectedMenu]);
     setIsAdding(false);
   };
 
@@ -42,6 +44,7 @@ const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
       image_url: '',
       menu_id: selectedMenu,
     });
+    setSelectedMenus([selectedMenu]);
   };
 
   const handleCancel = () => {
@@ -66,8 +69,25 @@ const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
       }
 
       if (isAdding) {
-        await createProduct(formData);
+        // יצירת מוצר חדש - אפשר למספר תפריטים
+        if (selectedMenus.length === 0) {
+          alert('יש לבחור לפחות תפריט אחד');
+          return;
+        }
+        
+        // יצירת מוצר לכל תפריט שנבחר
+        for (const menuId of selectedMenus) {
+          await createProduct({
+            ...formData,
+            menu_id: menuId
+          });
+        }
+        
+        if (selectedMenus.length > 1) {
+          alert(`המוצר נוסף בהצלחה ל-${selectedMenus.length} תפריטים!`);
+        }
       } else if (editingProduct) {
+        // עריכת מוצר קיים - רק התפריט הנוכחי
         await updateProduct(editingProduct, formData);
       }
 
@@ -129,6 +149,23 @@ const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
         </button>
       </div>
 
+      {/* Info box */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="flex items-start gap-3">
+          <div className="bg-blue-100 p-2 rounded-lg">
+            <Package className="w-5 h-5 text-blue-600" />
+          </div>
+          <div className="flex-1">
+            <h4 className="font-bold text-blue-800 mb-1">💡 שיוך מוצרים לתפריטים</h4>
+            <ul className="text-sm text-blue-700 space-y-1">
+              <li>• <strong>הוספת מוצר חדש:</strong> אפשר לבחור תפריט אחד או יותר - המוצר יתווסף לכולם!</li>
+              <li>• <strong>עריכת מוצר:</strong> שינויים חלים רק על התפריט הנוכחי.</li>
+              <li>• <strong>מחיקת מוצר:</strong> נמחק רק מהתפריט הנוכחי (לא משפיע על תפריטים אחרים).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       {/* Form (Add/Edit) */}
       {(isAdding || editingProduct) && (
         <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-gold">
@@ -163,6 +200,42 @@ const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
                 step="0.01"
               />
             </div>
+
+            {/* בחירת תפריטים - רק בהוספת מוצר חדש */}
+            {isAdding && (
+              <div className="md:col-span-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  שייך לתפריטים *
+                </label>
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-300">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {menus && menus.map((menu) => (
+                      <label
+                        key={menu.id}
+                        className="flex items-center gap-2 cursor-pointer hover:bg-white p-2 rounded transition-colors"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedMenus.includes(menu.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedMenus([...selectedMenus, menu.id]);
+                            } else {
+                              setSelectedMenus(selectedMenus.filter(id => id !== menu.id));
+                            }
+                          }}
+                          className="w-4 h-4 text-gold focus:ring-gold border-gray-300 rounded"
+                        />
+                        <span className="text-sm font-medium text-gray-700">{menu.name}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">
+                    💡 בחר תפריט אחד או יותר. המוצר יתווסף לכל התפריטים שנבחרו.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -279,6 +352,7 @@ const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
                 <th className="px-6 py-4 text-right text-sm font-bold text-gray-700">תיאור</th>
                 <th className="px-6 py-4 text-right text-sm font-bold text-gray-700">מחיר</th>
                 <th className="px-6 py-4 text-right text-sm font-bold text-gray-700">קטגוריה</th>
+                <th className="px-6 py-4 text-right text-sm font-bold text-gray-700">תפריט</th>
                 <th className="px-6 py-4 text-center text-sm font-bold text-gray-700">מומלץ</th>
                 <th className="px-6 py-4 text-center text-sm font-bold text-gray-700">פעולות</th>
               </tr>
@@ -307,6 +381,11 @@ const ProductsTab = ({ products, setProducts, selectedMenu, onRefresh }) => {
                   <td className="px-6 py-4">
                     <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
                       {product.category}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-semibold">
+                      {menus?.find(m => m.id === product.menu_id)?.name || 'לא ידוע'}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-center">
