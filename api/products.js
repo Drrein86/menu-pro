@@ -16,13 +16,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Extract ID from URL path if present (e.g., /api/products/1)
-    const urlParts = req.url.split('/');
-    const lastPart = urlParts[urlParts.length - 1];
-    const id = lastPart.split('?')[0];
-    const hasId = id && id !== 'products' && !isNaN(id);
+    // Extract ID from URL path or query
+    let id = null;
     
-    // Extract query params manually
+    // Check query parameter first
+    if (req.query && req.query.id) {
+      id = req.query.id;
+    } else {
+      // Extract from URL path
+      const urlParts = req.url.split('/').filter(Boolean);
+      const lastPart = urlParts[urlParts.length - 1].split('?')[0];
+      if (lastPart && lastPart !== 'products' && !isNaN(lastPart)) {
+        id = lastPart;
+      }
+    }
+    
+    const hasId = id && !isNaN(id);
+    
+    // Extract query params
     const urlObj = new URL(req.url, `http://${req.headers.host}`);
     const menu_id = urlObj.searchParams.get('menu_id');
 
