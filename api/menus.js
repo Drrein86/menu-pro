@@ -16,10 +16,22 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Extract ID from URL path if present (e.g., /api/menus/1)
-    const urlParts = req.url.split('/');
-    const id = urlParts[urlParts.length - 1].split('?')[0];
-    const hasId = id && id !== 'menus' && !isNaN(id);
+    // Extract ID from URL path or query (e.g., /api/menus/1 or /api/menus?id=1)
+    let id = null;
+    
+    // Check query parameter first
+    if (req.query && req.query.id) {
+      id = req.query.id;
+    } else {
+      // Extract from URL path
+      const urlParts = req.url.split('/').filter(Boolean);
+      const lastPart = urlParts[urlParts.length - 1].split('?')[0];
+      if (lastPart && lastPart !== 'menus' && !isNaN(lastPart)) {
+        id = lastPart;
+      }
+    }
+    
+    const hasId = id && !isNaN(id);
 
     // GET all menus
     if (req.method === 'GET' && !hasId) {
