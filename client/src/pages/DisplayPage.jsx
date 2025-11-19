@@ -52,8 +52,8 @@ const DisplayPage = () => {
     return fontMap[menu.font_family] || 'font-assistant';
   };
 
-  // חישוב מספר מוצרים מקסימלי לתצוגה במסך אחד
-  const maxProductsPerScreen = 8;
+  // חישוב מספר מוצרים מקסימלי לתצוגה במסך אחד (2 עמודות)
+  const maxProductsPerScreen = 16; // 16 מוצרים (8 בכל עמודה)
   const categoriesToShow = Object.entries(groupedProducts).slice(0, 2); // עד 2 קטגוריות
   const allProducts = categoriesToShow.flatMap(([_, items]) => items).slice(0, maxProductsPerScreen);
 
@@ -92,9 +92,9 @@ const DisplayPage = () => {
                   style={{
                     top: '50%',
                     left: '50%',
-                    width: '400%',
-                    height: '400%',
-                    transform: 'translate(-50%, -50%) scale(1.5)',
+                    width: `${(menu.video_zoom || 2) * 100}%`,
+                    height: `${(menu.video_zoom || 2) * 100}%`,
+                    transform: 'translate(-50%, -50%)',
                     border: 'none',
                     pointerEvents: 'none'
                   }}
@@ -173,20 +173,20 @@ const DisplayPage = () => {
                     </h2>
 
                     {/* רשימת מוצרים */}
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="grid grid-cols-2 gap-3">
                       {itemsToShow.map((product) => (
                         <div 
                           key={product.id}
-                          className="flex justify-between items-center gap-3 p-3 rounded-lg bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+                          className="flex justify-between items-center gap-2 p-2.5 rounded-lg bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
                         >
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-0.5">
-                              <h3 className="text-lg font-semibold truncate">
+                            <div className="flex items-center gap-1.5 mb-0.5">
+                              <h3 className="text-base font-semibold truncate">
                                 {product.name}
                               </h3>
                               {product.is_recommended === 1 && (
                                 <Star 
-                                  className="w-4 h-4 fill-current flex-shrink-0" 
+                                  className="w-3.5 h-3.5 fill-current flex-shrink-0" 
                                   style={{ color: menu.accent_color || '#d4af37' }}
                                 />
                               )}
@@ -196,22 +196,23 @@ const DisplayPage = () => {
                                 {product.description}
                               </p>
                             )}
-                          </div>
-
-                          <div className="flex items-center gap-3 flex-shrink-0">
-                            {product.image_url && (
-                              <img 
-                                src={product.image_url} 
-                                alt={product.name}
-                                className="w-14 h-14 object-cover rounded-lg shadow-lg"
-                              />
-                            )}
                             <div 
-                              className="text-xl font-bold whitespace-nowrap"
+                              className="text-lg font-bold whitespace-nowrap mt-1"
                               style={{ color: menu.accent_color || '#d4af37' }}
                             >
                               ₪{product.price.toFixed(0)}
                             </div>
+                          </div>
+
+                          <div className="flex items-center flex-shrink-0">
+                            {product.image_url && (
+                              <img 
+                                src={product.image_url} 
+                                alt={product.name}
+                                className="w-16 h-16 object-cover rounded-full shadow-lg border-2"
+                                style={{ borderColor: menu.accent_color || '#d4af37' }}
+                              />
+                            )}
                           </div>
                         </div>
                       ))}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, Palette, Type, RefreshCw } from 'lucide-react';
+import { Save, Palette, Type, RefreshCw, ZoomIn } from 'lucide-react';
 import { updateMenu } from '../../api/api';
 
 const DesignTab = ({ menu, onUpdate }) => {
@@ -8,6 +8,7 @@ const DesignTab = ({ menu, onUpdate }) => {
     text_color: menu.text_color || '#ffffff',
     accent_color: menu.accent_color || '#d4af37',
     font_family: menu.font_family || 'Assistant',
+    video_zoom: menu.video_zoom || 2.0,
   });
 
   const handleSave = async () => {
@@ -31,6 +32,7 @@ const DesignTab = ({ menu, onUpdate }) => {
       text_color: '#ffffff',
       accent_color: '#d4af37',
       font_family: 'Assistant',
+      video_zoom: 2.0,
     });
   };
 
@@ -171,6 +173,33 @@ const DesignTab = ({ menu, onUpdate }) => {
                   </option>
                 ))}
               </select>
+            </div>
+
+            {/* Video Zoom Control */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <ZoomIn className="w-5 h-5" />
+                זום וידאו רקע
+              </label>
+              <div className="space-y-2">
+                <input
+                  type="range"
+                  min="1"
+                  max="6"
+                  step="0.5"
+                  value={formData.video_zoom}
+                  onChange={(e) => setFormData({ ...formData, video_zoom: parseFloat(e.target.value) })}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gold"
+                />
+                <div className="flex justify-between text-xs text-gray-600">
+                  <span>רחוק (1x)</span>
+                  <span className="font-bold text-gold text-base">{formData.video_zoom}x</span>
+                  <span>קרוב מאוד (6x)</span>
+                </div>
+                <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
+                  💡 ערכים גבוהים יותר יקרבו את הוידאו ויסתירו את המסגרת השחורה
+                </p>
+              </div>
             </div>
 
             {/* Buttons */}
