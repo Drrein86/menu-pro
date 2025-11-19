@@ -7,6 +7,8 @@ const MenusTab = ({ menus, selectedMenu, setSelectedMenu, onRefresh }) => {
   const [editingMenu, setEditingMenu] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
+    business_name: '',
+    business_slogan: '',
     logo_url: '',
     media_url: '',
     media_type: 'image',
@@ -14,6 +16,7 @@ const MenusTab = ({ menus, selectedMenu, setSelectedMenu, onRefresh }) => {
     text_color: '#ffffff',
     accent_color: '#d4af37',
     font_family: 'Assistant',
+    video_zoom: 2.0,
   });
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -23,6 +26,8 @@ const MenusTab = ({ menus, selectedMenu, setSelectedMenu, onRefresh }) => {
     setEditingMenu(null);
     setFormData({
       name: '',
+      business_name: '',
+      business_slogan: '',
       logo_url: '',
       media_url: '',
       media_type: 'image',
@@ -30,6 +35,7 @@ const MenusTab = ({ menus, selectedMenu, setSelectedMenu, onRefresh }) => {
       text_color: '#ffffff',
       accent_color: '#d4af37',
       font_family: 'Assistant',
+      video_zoom: 2.0,
     });
   };
 
@@ -37,6 +43,8 @@ const MenusTab = ({ menus, selectedMenu, setSelectedMenu, onRefresh }) => {
     setEditingMenu(menu.id);
     setFormData({
       name: menu.name,
+      business_name: menu.business_name || '',
+      business_slogan: menu.business_slogan || '',
       logo_url: menu.logo_url || '',
       media_url: menu.media_url || '',
       media_type: menu.media_type || 'image',
@@ -44,6 +52,7 @@ const MenusTab = ({ menus, selectedMenu, setSelectedMenu, onRefresh }) => {
       text_color: menu.text_color || '#ffffff',
       accent_color: menu.accent_color || '#d4af37',
       font_family: menu.font_family || 'Assistant',
+      video_zoom: menu.video_zoom || 2.0,
     });
     setIsAdding(false);
   };
@@ -153,7 +162,7 @@ const MenusTab = ({ menus, selectedMenu, setSelectedMenu, onRefresh }) => {
             {/* שם התפריט */}
             <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                שם התפריט *
+                שם התפריט (פנימי) *
               </label>
               <input
                 type="text"
@@ -161,6 +170,34 @@ const MenusTab = ({ menus, selectedMenu, setSelectedMenu, onRefresh }) => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
                 placeholder="לדוגמה: תפריט קומה ראשונה"
+              />
+            </div>
+
+            {/* שם העסק */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                שם העסק (יוצג במסך)
+              </label>
+              <input
+                type="text"
+                value={formData.business_name}
+                onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                placeholder="לדוגמה: מסעדת הזהב"
+              />
+            </div>
+
+            {/* סלוגן העסק */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                סלוגן / משפט פרסומי
+              </label>
+              <input
+                type="text"
+                value={formData.business_slogan}
+                onChange={(e) => setFormData({ ...formData, business_slogan: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                placeholder="לדוגמה: הטעם האמיתי של הבית"
               />
             </div>
 

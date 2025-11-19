@@ -4,6 +4,8 @@ import { updateMenu } from '../../api/api';
 
 const DesignTab = ({ menu, onUpdate }) => {
   const [formData, setFormData] = useState({
+    business_name: menu.business_name || '',
+    business_slogan: menu.business_slogan || '',
     theme_color: menu.theme_color || '#1a1a1a',
     text_color: menu.text_color || '#ffffff',
     accent_color: menu.accent_color || '#d4af37',
@@ -28,6 +30,8 @@ const DesignTab = ({ menu, onUpdate }) => {
     }
 
     setFormData({
+      business_name: menu.business_name || '',
+      business_slogan: menu.business_slogan || '',
       theme_color: '#1a1a1a',
       text_color: '#ffffff',
       accent_color: '#d4af37',
@@ -88,6 +92,41 @@ const DesignTab = ({ menu, onUpdate }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left: Settings */}
           <div className="space-y-6">
+            {/* שם ושם עסק */}
+            <div className="bg-gold/5 p-4 rounded-lg border border-gold/20">
+              <h3 className="text-lg font-bold text-gray-800 mb-4">פרטי העסק</h3>
+              
+              <div className="space-y-4">
+                {/* שם העסק */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    שם העסק (יוצג למעלה במסך)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.business_name}
+                    onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                    placeholder="לדוגמה: מסעדת הזהב"
+                  />
+                </div>
+
+                {/* סלוגן */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    סלוגן / משפט פרסומי
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.business_slogan}
+                    onChange={(e) => setFormData({ ...formData, business_slogan: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                    placeholder="לדוגמה: הטעם האמיתי של הבית"
+                  />
+                </div>
+              </div>
+            </div>
+
             <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
               <Palette className="w-6 h-6" />
               הגדרות צבעים

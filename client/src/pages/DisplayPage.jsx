@@ -134,16 +134,36 @@ const DisplayPage = () => {
       {/* אזור תפריט - צד ימין */}
       <div className="w-2/3 flex flex-col h-screen overflow-hidden">
         <div className="px-6 pt-4 pb-2 flex-shrink-0">
-          {/* לוגו */}
-          {menu.logo_url && (
-            <div className="flex justify-end fade-in">
-              <img 
-                src={menu.logo_url} 
-                alt="Logo" 
-                className="max-h-16 object-contain"
-              />
+          {/* לוגו + שם ושם עסק */}
+          <div className="flex justify-between items-center fade-in">
+            {/* שם עסק וסלוגן */}
+            <div className="flex-1">
+              {menu.business_name && (
+                <h1 
+                  className="text-3xl font-bold mb-1"
+                  style={{ color: menu.accent_color || '#d4af37' }}
+                >
+                  {menu.business_name}
+                </h1>
+              )}
+              {menu.business_slogan && (
+                <p className="text-lg opacity-80">
+                  {menu.business_slogan}
+                </p>
+              )}
             </div>
-          )}
+            
+            {/* לוגו */}
+            {menu.logo_url && (
+              <div className="mr-4">
+                <img 
+                  src={menu.logo_url} 
+                  alt="Logo" 
+                  className="max-h-20 object-contain"
+                />
+              </div>
+            )}
+          </div>
         </div>
 
         {/* תפריט מוצרים - ללא גלילה */}
@@ -224,12 +244,6 @@ const DisplayPage = () => {
           )}
         </div>
 
-        {/* פוטר */}
-        <div className="px-6 pb-3 flex-shrink-0">
-          <div className="pt-2 border-t border-white/10 text-center text-base opacity-60">
-            תיאבון טוב! 🍽️
-          </div>
-        </div>
       </div>
     </div>
   );
