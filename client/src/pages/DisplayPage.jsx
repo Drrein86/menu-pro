@@ -86,14 +86,15 @@ const DisplayPage = () => {
           isVideo ? (
             // וידאו
             menu.media_url.includes('youtube.com') || menu.media_url.includes('youtu.be') ? (
-              <div className="absolute inset-0 w-full h-full">
+              <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <iframe
                   className="absolute"
                   style={{
-                    top: '-60px',
-                    left: '-60px',
-                    width: 'calc(100% + 120px)',
-                    height: 'calc(100% + 120px)',
+                    top: '50%',
+                    left: '50%',
+                    width: '200%',
+                    height: '200%',
+                    transform: 'translate(-50%, -50%)',
                     border: 'none',
                     pointerEvents: 'none'
                   }}
@@ -132,35 +133,37 @@ const DisplayPage = () => {
 
       {/* אזור תפריט - צד ימין */}
       <div className="w-2/3 flex flex-col h-screen overflow-hidden">
-        <div className="p-8 flex-shrink-0">
+        <div className="px-6 pt-4 pb-2 flex-shrink-0">
           {/* לוגו */}
           {menu.logo_url && (
-            <div className="flex justify-end mb-6 fade-in">
+            <div className="flex justify-end fade-in">
               <img 
                 src={menu.logo_url} 
                 alt="Logo" 
-                className="max-h-24 object-contain"
+                className="max-h-16 object-contain"
               />
             </div>
           )}
         </div>
 
         {/* תפריט מוצרים - ללא גלילה */}
-        <div className="flex-1 px-8 pb-8 overflow-hidden">
+        <div className="flex-1 px-6 pb-4 overflow-hidden flex flex-col">
           {Object.keys(groupedProducts).length === 0 ? (
-            <div className="text-center text-gray-400 text-3xl py-20">
+            <div className="text-center text-gray-400 text-2xl py-20">
               אין מוצרים להצגה
             </div>
           ) : (
-            <div className="h-full flex flex-col">
+            <div className="h-full flex flex-col justify-evenly">
               {categoriesToShow.map(([category, items], catIdx) => {
-                const itemsToShow = items.slice(0, Math.floor(maxProductsPerScreen / categoriesToShow.length));
+                const totalCategories = categoriesToShow.length;
+                const itemsPerCategory = Math.floor(maxProductsPerScreen / totalCategories);
+                const itemsToShow = items.slice(0, itemsPerCategory);
                 
                 return (
-                  <div key={category} className="mb-6">
+                  <div key={category} className="flex-1 flex flex-col justify-center">
                     {/* כותרת קטגוריה */}
                     <h2 
-                      className="text-3xl font-bold mb-4 pb-2 border-b-2"
+                      className="text-2xl font-bold mb-3 pb-1 border-b-2"
                       style={{ 
                         color: menu.accent_color || '#d4af37',
                         borderColor: menu.accent_color || '#d4af37'
@@ -170,41 +173,41 @@ const DisplayPage = () => {
                     </h2>
 
                     {/* רשימת מוצרים */}
-                    <div className="grid grid-cols-1 gap-3">
+                    <div className="grid grid-cols-1 gap-2">
                       {itemsToShow.map((product) => (
                         <div 
                           key={product.id}
-                          className="flex justify-between items-center gap-4 p-4 rounded-lg bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+                          className="flex justify-between items-center gap-3 p-3 rounded-lg bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
                         >
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <h3 className="text-xl font-semibold truncate">
+                            <div className="flex items-center gap-2 mb-0.5">
+                              <h3 className="text-lg font-semibold truncate">
                                 {product.name}
                               </h3>
                               {product.is_recommended === 1 && (
                                 <Star 
-                                  className="w-5 h-5 fill-current flex-shrink-0" 
+                                  className="w-4 h-4 fill-current flex-shrink-0" 
                                   style={{ color: menu.accent_color || '#d4af37' }}
                                 />
                               )}
                             </div>
                             {product.description && (
-                              <p className="text-sm opacity-75 line-clamp-1">
+                              <p className="text-xs opacity-75 line-clamp-1">
                                 {product.description}
                               </p>
                             )}
                           </div>
 
-                          <div className="flex items-center gap-4 flex-shrink-0">
+                          <div className="flex items-center gap-3 flex-shrink-0">
                             {product.image_url && (
                               <img 
                                 src={product.image_url} 
                                 alt={product.name}
-                                className="w-16 h-16 object-cover rounded-lg shadow-lg"
+                                className="w-14 h-14 object-cover rounded-lg shadow-lg"
                               />
                             )}
                             <div 
-                              className="text-2xl font-bold whitespace-nowrap"
+                              className="text-xl font-bold whitespace-nowrap"
                               style={{ color: menu.accent_color || '#d4af37' }}
                             >
                               ₪{product.price.toFixed(0)}
@@ -221,8 +224,8 @@ const DisplayPage = () => {
         </div>
 
         {/* פוטר */}
-        <div className="px-8 pb-6 flex-shrink-0">
-          <div className="pt-4 border-t border-white/10 text-center text-lg opacity-60">
+        <div className="px-6 pb-3 flex-shrink-0">
+          <div className="pt-2 border-t border-white/10 text-center text-base opacity-60">
             תיאבון טוב! 🍽️
           </div>
         </div>

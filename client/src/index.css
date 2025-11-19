@@ -82,3 +82,34 @@ html[dir="rtl"] * {
   font-family: 'Heebo', sans-serif;
 }
 
+/* אופטימיזציה למסך טלוויזיה */
+@media screen {
+  body {
+    overflow: hidden;
+  }
+  
+  /* מניעת גלילה בכל המערכת */
+  html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  
+  /* שיפור חדות טקסט על מסכים גדולים */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* הסתרת scrollbar לגמרי בתצוגה */
+.overflow-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.overflow-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
